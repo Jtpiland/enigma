@@ -1,0 +1,6 @@
+THIS IS ANOTHER TEST FILE FOR READING AND WRITING IO
+
+
+This file was created and the data within it was transformed by calling this:
+
+$ruby ./lib/encrypt.rb test_file.txt capitalized.txt
