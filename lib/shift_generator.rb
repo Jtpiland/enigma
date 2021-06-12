@@ -31,7 +31,7 @@ class ShiftGenerator
 
   def random_five_digit_number
     @numbers.sample(5).each do |number|
-      @random_five << number
+      @random_five << number.to_s
     end
     @random_five
   end
