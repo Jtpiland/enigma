@@ -1,3 +1,6 @@
+require 'time'
+require 'date'
+
 class ShiftGenerator
   attr_reader :numbers
   attr_accessor :random_five,
@@ -41,33 +44,23 @@ class ShiftGenerator
     @d_key = five[3..4].join.to_i
   end
 
-  def offset
+  def determine_offset
     t = Time.now
     new_time = t.strftime("%m/%d/%y").delete('/').to_i
-    squared = new_time ** 2
-    @a_offset = squared.digits[3]
-    @b_offset = squared.digits[2]
-    @a_offset = squared.digits[1]
-    @a_offset = squared.digits[0]
-
-
-    # date = (("040895").to_i) ** 2
-    # last_four = date
-    # get today's date
-    # square today's date
-    # take the last four digits of that number
-    # a_offset = fourth to last digit
-    # b_offset = third to last digit
-    # c_offset = second to last digit
-    # d_offset = last digit
+    squared = (new_time ** 2).to_s.split("")
+    @a_offset = squared[-4].to_i
+    @b_offset = squared[-3].to_i
+    @c_offset = squared[-2].to_i
+    @d_offset = squared[-1].to_i
   end
 
-  # def create_new_hash
-  #   #keys are the shift(a,b,c,d) and values are the sum of the key and a_offset
-  #   shift_hash = Hash.new { |hash, key| hash[key] =  0}
-  #   shift_hash[shift_position] = key + offset (for each position)
-  #
-  #   end
-  # end
-
+  def create_total_shift_hash
+    determine_keys
+    determine_offset
+    @total_shift = Hash.new { |hash, key| hash[key] = 0 }
+    @total_shift[:a_shift] = @a_key + @a_offset
+    @total_shift[:b_shift] = @b_key + @b_offset
+    @total_shift[:c_shift] = @c_key + @c_offset
+    @total_shift[:d_shift] = @d_key + @d_offset
+  end
 end
