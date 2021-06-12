@@ -8,7 +8,8 @@ class ShiftGenerator
                 :b_key,
                 :c_key,
                 :d_key,
-                :transmission_date,
+                :date,
+                :date_squared,
                 :a_offset,
                 :b_offset,
                 :c_offset,
@@ -22,6 +23,8 @@ class ShiftGenerator
     @b_key = b_key
     @c_key = c_key
     @d_key = d_key
+    @date = date
+    @date_squared = date_squared
     @a_offset = a_offset
     @b_offset = b_offset
     @c_offset = c_offset
@@ -30,6 +33,7 @@ class ShiftGenerator
   end
 
   def random_five_digit_number
+    @random_five = []
     @numbers.sample(5).each do |number|
       @random_five << number.to_s
     end
@@ -46,15 +50,16 @@ class ShiftGenerator
 
   def determine_offset
     t = Time.now
-    new_time = t.strftime("%m/%d/%y").delete('/').to_i
-    squared = (new_time ** 2).to_s.split("")
-    @a_offset = squared[-4].to_i
-    @b_offset = squared[-3].to_i
-    @c_offset = squared[-2].to_i
-    @d_offset = squared[-1].to_i
+    @date = t.strftime("%d/%m/%y").delete('/').to_i
+    @date_squared = (date ** 2).to_s.split("").reverse
+    @a_offset = date_squared[3].to_i
+    @b_offset = date_squared[2].to_i
+    @c_offset = date_squared[1].to_i
+    @d_offset = date_squared[0].to_i
   end
 
   def create_total_shift_hash
+    random_five_digit_number
     determine_keys
     determine_offset
     @total_shift = Hash.new { |hash, key| hash[key] = 0 }
