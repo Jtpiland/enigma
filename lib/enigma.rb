@@ -7,17 +7,19 @@ class Enigma
 
   def initialize
     @shift_gen = ShiftGenerator.new
-    # @shift_gen.random_five_digit_number
-    # @shift_gen.determine_keys
-    # @shift_gen.determine_offset
     @shift_gen.create_total_shift_hash
-    # require "pry"; binding.pry
     @character_set = ("a".."z").to_a << " "
+    # require "pry"; binding.pry
   end
 
-  def encrypt(message, key, date)
+  def encrypt#(message, key, date)
+    message = "hello world"
+    @index_message = message.to_s.split("") #=> enigma.encrypt in pry
+    #@five_digit_key = key
     #take in message
+    #set default key and date arg to random5 and today's date but need to allow them to be overwritten if input by user
     #encrypt message using shift = key/date sum
+    #find index in character set of each letter in message, that's where the shift will begin.... 
     #return hash {:encryption => '', :key => '02715'=@shift_gen.random_five.join.to_s, :date => "040895"(DDMMYY)= @shift_gen.date.to_s}
   end
 

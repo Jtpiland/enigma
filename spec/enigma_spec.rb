@@ -20,18 +20,20 @@ RSpec.describe Enigma do
     end
   end
 
-  # describe 'Methods' do
-  #   it "can encrypt a message" do
-  #     enigma = Enigma.new
-  #
-  #     expected = {
-  #       :encryption => "encrypted string"
-  #       :key => "key used for encryption as a String",
-  #       :date => "date used for encryption as a String(DDMMYY)"
-  #       }
-  #
-  #     expect(enigma.encrypt).to eq(expected)
-  #   end
+  describe 'Methods' do
+    it "can encrypt a message" do
+      enigma = Enigma.new
+      enigma.encrypt#("hello world", "02715", "040895")
+      require "pry"; binding.pry
+
+      expected = {
+        :encryption => "encrypted string",
+        :key => "key used for encryption as a String",
+        :date => "date used for encryption as a String(DDMMYY)"
+        }
+
+      expect(enigma.encrypt).to eq(expected)
+    end
   #
   #   it "can decrypt a message" do
   #     enigma = Enigma.new
@@ -44,5 +46,5 @@ RSpec.describe Enigma do
   #
   #     expect(enigma.decrypt).to eq(expected)
   #   end
-  # end
+  end
 end
