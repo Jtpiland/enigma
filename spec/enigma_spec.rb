@@ -24,12 +24,12 @@ RSpec.describe Enigma do
     it "can encrypt a message" do
       enigma = Enigma.new
       enigma.encrypt#("hello world", "02715", "040895")
-      require "pry"; binding.pry
 
+      
       expected = {
-        :encryption => "encrypted string",
-        :key => "key used for encryption as a String",
-        :date => "date used for encryption as a String(DDMMYY)"
+        :encryption => "keder ohulw",
+        :key => "02715",
+        :date => "040895"
         }
 
       expect(enigma.encrypt).to eq(expected)
