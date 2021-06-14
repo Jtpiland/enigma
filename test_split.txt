@@ -1,5 +1,0 @@
-["this", "is", "another", "test", "file", "for", "reading", "and", "writing", "io"]
-
-This file was created and the data within it was transformed by calling this:
-
-$ruby ./lib/decrypt.rb test_file.txt test_split.txt
