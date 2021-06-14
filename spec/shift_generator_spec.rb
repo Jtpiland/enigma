@@ -24,17 +24,17 @@ RSpec.describe ShiftGenerator do
       shift = ShiftGenerator.new
 
       expect(shift.random_five_digit_number.length).to eq(5)
-      expect(shift.random_five_digit_number).to be_a(Array)
+      expect(shift.random_five_digit_number).to be_a(String)
 
     end
 
     it "can determine the four keys from random five digit number" do
       shift = ShiftGenerator.new
-      random_five = [3,2,7,1,5]
+      random_five = "32715"#[3,2,7,1,5]
       allow(shift).to receive(:random_five_digit_number).and_return(random_five)
 
-      expect(shift.random_five_digit_number).to eq([3,2,7,1,5])
-
+      expect(shift.random_five_digit_number).to eq("32715")#[3,2,7,1,5])
+      # require "pry"; binding.pry
       shift.determine_keys
 
       expect(shift.a_key).to eq(32)
@@ -63,7 +63,7 @@ RSpec.describe ShiftGenerator do
       shift = ShiftGenerator.new
       time_stub = ("2021-06-11 20:09:42.846327 -0500")
       strf_stub = ("06/11/21")
-      random_five = [3,2,7,1,5]
+      random_five = "32715"
       allow(shift).to receive(:random_five_digit_number).and_return(random_five)
       allow(Time).to receive(:now).and_return(time_stub)
       t = Time.now

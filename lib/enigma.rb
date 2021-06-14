@@ -10,14 +10,14 @@ class Enigma
     @character_set = ("a".."z").to_a << " "
   end
 
-  def encrypt(message, key = @random_five.join.to_s, date = @date)
+  def encrypt(message, key, date)
     @encrypted_hash = {}
-    @shift_gen.create_total_shift_hash
-    @shift_gen.total_shift[:a_shift] = 3
-    @shift_gen.total_shift[:b_shift] = 27
-    @shift_gen.total_shift[:c_shift] = 73
-    @shift_gen.total_shift[:d_shift] = 20
-
+    @shift_gen.create_total_shift_hash(key, date)
+    # @shift_gen.total_shift[:a_shift] = 3
+    # @shift_gen.total_shift[:b_shift] = 27
+    # @shift_gen.total_shift[:c_shift] = 73
+    # @shift_gen.total_shift[:d_shift] = 20
+    require "pry"; binding.pry
     @index_ciphertext = message.to_s.split("") #=> enigma.encrypt in pry
     @positions_array = [] #this array shows the original index in the character_set for each letter in the message
     @index_ciphertext.each do |letter|
@@ -55,11 +55,11 @@ class Enigma
 
   def decrypt(ciphertext, key, date)
     @encrypted_hash = {}
-    @shift_gen.create_total_shift_hash
-    @shift_gen.total_shift[:a_shift] = 3
-    @shift_gen.total_shift[:b_shift] = 27
-    @shift_gen.total_shift[:c_shift] = 73
-    @shift_gen.total_shift[:d_shift] = 20
+    @shift_gen.create_total_shift_hash(key, date)
+    # @shift_gen.total_shift[:a_shift] = 3
+    # @shift_gen.total_shift[:b_shift] = 27
+    # @shift_gen.total_shift[:c_shift] = 73
+    # @shift_gen.total_shift[:d_shift] = 20
 
     @index_ciphertext = ciphertext.to_s.split("") #=> enigma.encrypt in pry
     @positions_array = [] #this array shows the original index in the character_set for each letter in the message

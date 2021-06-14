@@ -23,7 +23,6 @@ class ShiftGenerator
     @b_key = b_key
     @c_key = c_key
     @d_key = d_key
-    @date = date
     @date_squared = date_squared
     @a_offset = a_offset
     @b_offset = b_offset
@@ -37,20 +36,23 @@ class ShiftGenerator
     @numbers.sample(5).each do |number|
       @random_five << number.to_s
     end
-    @random_five
+    @random_five_string = @random_five.join.to_s
+    @random_five_string
   end
 
   def determine_keys(key = random_five_digit_number)
-    # five = random_five_digit_number
-    @a_key = key[0..1].join.to_i
-    @b_key = key[1..2].join.to_i
-    @c_key = key[2..3].join.to_i
-    @d_key = key[3..4].join.to_i
+    @a_key = key.split("")[0..1].join.to_i
+    @b_key = key.split("")[1..2].join.to_i
+    @c_key = key.split("")[2..3].join.to_i
+    @d_key = key.split("")[3..4].join.to_i
   end
 
-  def determine_offset(date = Time.now)
+  def create_six_digit_date
     date = Time.now
     @converted_date = date.strftime("%d/%m/%y").delete('/').to_i
+  end
+
+  def determine_offset(date = create_six_digit_date)
     @date_squared = (@converted_date ** 2).to_s.split("").reverse
     @a_offset = date_squared[3].to_i
     @b_offset = date_squared[2].to_i
@@ -58,7 +60,7 @@ class ShiftGenerator
     @d_offset = date_squared[0].to_i
   end
 
-  def create_total_shift_hash
+  def create_total_shift_hash(key = random_five_digit_number,date = create_six_digit_date)
     random_five_digit_number
     determine_keys
     determine_offset
