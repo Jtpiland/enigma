@@ -13,7 +13,7 @@ class Enigma
   def encrypt(message, key = @shift_gen.random_five_digit_number, date = @shift_gen.create_six_digit_date)
     @encrypted_hash = {}
     @shift_gen.create_total_shift_hash(key, date)
-    @index_message = message.to_s.split("")
+    @index_message = message.downcase.to_s.split("")
     @positions_array = []
     @index_message.each do |letter|
       if @character_set.index(letter) != nil

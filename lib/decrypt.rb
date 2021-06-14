@@ -19,3 +19,5 @@ decrypted_hash = enigma.decrypt(incoming_text, key, date)
 writer.write(decrypted_hash[:decryption])
 
 writer.close
+
+puts "Created 'decrypted.txt' with the key #{decrypted_hash[:key]} and date #{decrypted_hash[:date]}"
