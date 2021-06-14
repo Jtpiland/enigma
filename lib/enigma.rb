@@ -13,21 +13,16 @@ class Enigma
   def encrypt(message, key, date)
     @encrypted_hash = {}
     @shift_gen.create_total_shift_hash(key, date)
-    # @shift_gen.total_shift[:a_shift] = 3
-    # @shift_gen.total_shift[:b_shift] = 27
-    # @shift_gen.total_shift[:c_shift] = 73
-    # @shift_gen.total_shift[:d_shift] = 20
-    require "pry"; binding.pry
-    @index_ciphertext = message.to_s.split("") #=> enigma.encrypt in pry
-    @positions_array = [] #this array shows the original index in the character_set for each letter in the message
-    @index_ciphertext.each do |letter|
+    @index_message = message.to_s.split("") 
+    @positions_array = []
+    @index_message.each do |letter|
       if @character_set.index(letter) != nil
         @positions_array << @character_set.index(letter)
       end
     end
     @positions_array
     @new_message = []
-    @index_ciphertext.each_with_index do |letter, index|
+    @index_message.each_with_index do |letter, index|
       if ((index + 1) % 4 == 1) || index == 0
         @new_set = @character_set.rotate(@positions_array[index])
         @new_letter = @new_set.rotate(@shift_gen.total_shift[:a_shift])[0]
@@ -52,17 +47,11 @@ class Enigma
     @encrypted_hash
   end
 
-
   def decrypt(ciphertext, key, date)
     @encrypted_hash = {}
     @shift_gen.create_total_shift_hash(key, date)
-    # @shift_gen.total_shift[:a_shift] = 3
-    # @shift_gen.total_shift[:b_shift] = 27
-    # @shift_gen.total_shift[:c_shift] = 73
-    # @shift_gen.total_shift[:d_shift] = 20
-
-    @index_ciphertext = ciphertext.to_s.split("") #=> enigma.encrypt in pry
-    @positions_array = [] #this array shows the original index in the character_set for each letter in the message
+    @index_ciphertext = ciphertext.to_s.split("")
+    @positions_array = []
     @index_ciphertext.each do |letter|
       if @character_set.index(letter) != nil
         @positions_array << @character_set.index(letter)
@@ -94,6 +83,4 @@ class Enigma
     @encrypted_hash[:date] = date.to_s
     @encrypted_hash
   end
-
-
 end
