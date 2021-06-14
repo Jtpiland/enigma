@@ -40,18 +40,18 @@ class ShiftGenerator
     @random_five
   end
 
-  def determine_keys
-    five = random_five_digit_number
-    @a_key = five[0..1].join.to_i
-    @b_key = five[1..2].join.to_i
-    @c_key = five[2..3].join.to_i
-    @d_key = five[3..4].join.to_i
+  def determine_keys(key = random_five_digit_number)
+    # five = random_five_digit_number
+    @a_key = key[0..1].join.to_i
+    @b_key = key[1..2].join.to_i
+    @c_key = key[2..3].join.to_i
+    @d_key = key[3..4].join.to_i
   end
 
-  def determine_offset
-    t = Time.now
-    @date = t.strftime("%d/%m/%y").delete('/').to_i
-    @date_squared = (date ** 2).to_s.split("").reverse
+  def determine_offset(date = Time.now)
+    date = Time.now
+    @converted_date = date.strftime("%d/%m/%y").delete('/').to_i
+    @date_squared = (@converted_date ** 2).to_s.split("").reverse
     @a_offset = date_squared[3].to_i
     @b_offset = date_squared[2].to_i
     @c_offset = date_squared[1].to_i
