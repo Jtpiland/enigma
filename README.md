@@ -2,7 +2,7 @@
 
 #Self Assessment
 
-###Functionality - 3 - Both encrypt and decrypt methods are successful and can be implemented from the command line.
+###Functionality - 3 - Both encrypt and decrypt methods are successful and can be implemented from the command line. 
 
 ###OOP - 3 - Project broken down into two classes.  One that generates the key and another that actually does the encryption/decryption.
 
