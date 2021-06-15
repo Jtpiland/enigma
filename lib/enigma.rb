@@ -10,10 +10,7 @@ class Enigma
     @character_set = ("a".."z").to_a << " "
   end
 
-  def encrypt(message, key = @shift_gen.random_five_digit_number, date = @shift_gen.create_six_digit_date)
-    @encrypted_hash = {}
-    @shift_gen.create_total_shift_hash(key, date)
-    @index_message = message.to_s.split("")
+  def positions
     @positions_array = []
     @index_message.each do |letter|
       if @character_set.index(letter) != nil
@@ -21,6 +18,13 @@ class Enigma
       end
     end
     @positions_array
+  end
+
+  def encrypt(message, key = @shift_gen.random_five_digit_number, date = @shift_gen.create_six_digit_date)
+    @encrypted_hash = {}
+    @shift_gen.create_total_shift_hash(key, date)
+    @index_message = message.downcase.to_s.split("")
+    positions
     @new_message = []
     @index_message.each_with_index do |letter, index|
       if ((index + 1) % 4 == 1) || index == 0
@@ -50,16 +54,10 @@ class Enigma
   def decrypt(ciphertext, key = @shift_gen.random_five_digit_number, date = @shift_gen.create_six_digit_date)
     @decrypted_hash = {}
     @shift_gen.create_total_shift_hash(key, date)
-    @index_ciphertext = ciphertext.to_s.split("")
-    @positions_array = []
-    @index_ciphertext.each do |letter|
-      if @character_set.index(letter) != nil
-        @positions_array << @character_set.index(letter)
-      end
-    end
-    @positions_array
+    @index_message = ciphertext.to_s.split("")
+    positions
     @new_message = []
-    @index_ciphertext.each_with_index do |letter, index|
+    @index_message.each_with_index do |letter, index|
       if ((index + 1) % 4 == 1) || index == 0
         @new_set = @character_set.rotate(@positions_array[index])
         @new_letter = @new_set.rotate(-(@shift_gen.total_shift[:a_shift]))[0]
